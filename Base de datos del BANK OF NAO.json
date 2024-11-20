@@ -5,7 +5,7 @@
                "cedula": "30.170.300",
                "usuario_banco": "andper",
                "clave_usuario_banco": 456,
-               "saldo_Bs": 10000000.0,
+               "saldo_Bs": 9990000.0,
                "tipo_de_cuenta": "ahorro"
           },
           {
@@ -13,7 +13,7 @@
                "cedula": "31.000.000",
                "usuario_banco": "lueap",
                "clave_usuario_banco": 789,
-               "saldo_Bs": 61000.0,
+               "saldo_Bs": 71000.0,
                "tipo_de_cuenta": "corriente"
           },
           {
