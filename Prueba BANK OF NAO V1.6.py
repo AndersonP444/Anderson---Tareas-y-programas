@@ -4,7 +4,7 @@ import requests
 from base64 import b64encode, b64decode
 
 # Configuración de GitHub
-GITHUB_TOKEN = "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"  # Reemplaza con tu token de acceso personal
+GITHUB_TOKEN = "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"  # Reemplaza con tu token de acceso personal
 GITHUB_USERNAME = "AndersonP444"
 REPO_NAME = "Anderson---Tareas-y-programas"
 FILE_PATH = "Base de datos del BANK OF NAO.json"
