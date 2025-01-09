@@ -23,6 +23,14 @@
                "clave_usuario_banco": 211100,
                "saldo_Bs": 200000.0,
                "tipo_de_cuenta": "ahorro"
+          },
+          {
+               "nombre_completo": "Jeff Vass",
+               "cedula": "25.769.159",
+               "usuario_banco": "jeff01",
+               "clave_usuario_banco": 1973,
+               "saldo_Bs": 100.0,
+               "tipo_de_cuenta": "corriente"
           }
      ]
 }
