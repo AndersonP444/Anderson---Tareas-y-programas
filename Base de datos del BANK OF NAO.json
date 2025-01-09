@@ -1,36 +1,36 @@
 {
-    "usuarios": [
-        {
-            "nombre_completo": "Anderson Perdomo",
-            "cedula": "30.170.300",
-            "usuario_banco": "andper",
-            "clave_usuario_banco": 456,
-            "saldo_Bs": 30000000.0,
-            "tipo_de_cuenta": "ahorro"
-        },
-        {
-            "nombre_completo": "Lue Aparicio",
-            "cedula": "31.000.000",
-            "usuario_banco": "lueap",
-            "clave_usuario_banco": 789,
-            "saldo_Bs": 20071000.0,
-            "tipo_de_cuenta": "corriente"
-        },
-        {
-            "nombre_completo": "Gerson Zambrano",
-            "cedula": "28.404.650",
-            "usuario_banco": "gszs10",
-            "clave_usuario_banco": 211100,
-            "saldo_Bs": 200000.0,
-            "tipo_de_cuenta": "ahorro"
-        },
-        {
-            "nombre_completo": "Jeff Vass",
-            "cedula": "25.769.159",
-            "usuario_banco": "jeff01",
-            "clave_usuario_banco": 1973,
-            "saldo_Bs": 100.0,
-            "tipo_de_cuenta": "corriente"
-        }
-    ]
+     "usuarios": [
+          {
+               "nombre_completo": "Anderson Perdomo",
+               "cedula": "30.170.300",
+               "usuario_banco": "andper",
+               "clave_usuario_banco": 456,
+               "saldo_Bs": 20000000.0,
+               "tipo_de_cuenta": "ahorro"
+          },
+          {
+               "nombre_completo": "Lue Aparicio",
+               "cedula": "31.000.000",
+               "usuario_banco": "lueap",
+               "clave_usuario_banco": 789,
+               "saldo_Bs": 30071000.0,
+               "tipo_de_cuenta": "corriente"
+          },
+          {
+               "nombre_completo": "Gerson Zambrano",
+               "cedula": "28.404.650",
+               "usuario_banco": "gszs10",
+               "clave_usuario_banco": 211100,
+               "saldo_Bs": 200000.0,
+               "tipo_de_cuenta": "ahorro"
+          },
+          {
+               "nombre_completo": "Jeff Vass",
+               "cedula": "25.769.159",
+               "usuario_banco": "jeff01",
+               "clave_usuario_banco": 1973,
+               "saldo_Bs": 100.0,
+               "tipo_de_cuenta": "corriente"
+          }
+     ]
 }
