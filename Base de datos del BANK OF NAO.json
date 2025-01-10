@@ -31,6 +31,22 @@
             "clave_usuario_banco": 1973,
             "saldo_Bs": 100.0,
             "tipo_de_cuenta": "corriente"
+        },
+        {
+            "nombre_completo": "Lian",
+            "cedula": null,
+            "usuario_banco": null,
+            "clave_usuario_banco": null,
+            "saldo_Bs": null,
+            "tipo_de_cuenta": null
+        },
+        {
+            "nombre_completo": "Lian Gil",
+            "cedula": "32.455.256",
+            "usuario_banco": "l14nG",
+            "clave_usuario_banco": 4682,
+            "saldo_Bs": 1000.0,
+            "tipo_de_cuenta": "ahorro"
         }
     ]
 }
