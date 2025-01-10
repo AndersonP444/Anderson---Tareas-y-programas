@@ -31,14 +31,6 @@
             "clave_usuario_banco": 1973,
             "saldo_Bs": 100.0,
             "tipo_de_cuenta": "corriente"
-        },
-        {
-            "nombre_completo": "Lian",
-            "cedula": null,
-            "usuario_banco": null,
-            "clave_usuario_banco": null,
-            "saldo_Bs": null,
-            "tipo_de_cuenta": null
         }
     ]
 }
