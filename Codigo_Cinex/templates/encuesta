@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta Cinex</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background: #f4f4f4; 
+            margin: 0;
+        }
+        .pregunta { 
+            background: white; 
+            padding: 30px 20px; 
+            border-radius: 20px; 
+            margin: 10px auto; 
+            max-width: 400px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+        }
+        
+        h3 { color: #333; margin-bottom: 25px; }
+
+        /* Contenedor de caritas mejorado para móviles */
+        .caritas-container { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 15px; 
+        }
+        
+        /* Esconder el radio button original */
+        .opcion-encuesta input { 
+            display: none; 
+        }
+        
+        .opcion-encuesta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        /* Estilo de las caritas */
+        .carita { 
+            font-size: 55px; 
+            filter: grayscale(100%); 
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            margin-bottom: 8px;
+        }
+
+        .opcion-encuesta span {
+            font-size: 14px;
+            color: #777;
+            font-weight: 500;
+        }
+
+        /* Interacción al tocar */
+        .carita:active { transform: scale(0.8); }
+
+        /* Cuando se selecciona una carita */
+        input:checked + .carita { 
+            filter: grayscale(0%); 
+            transform: scale(1.2); 
+        }
+
+        /* Resaltar el texto de la opción seleccionada */
+        input:checked ~ span {
+            color: #e02424;
+            font-weight: bold;
+        }
+        
+        .btn-enviar { 
+            background: #e02424; 
+            color: white; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 50px; 
+            font-size: 18px; 
+            font-weight: bold;
+            width: 100%; 
+            margin-top: 30px; 
+            box-shadow: 0 4px 15px rgba(224, 36, 36, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-enviar:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="pregunta">
+        <h3>¿Cómo calificarías tu experiencia hoy?</h3>
+        <form action="/enviar" method="POST">
+            <h2 style="font-size: 1.2rem; color: #444;">Indícanos qué tan de acuerdo estás:</h2>
+        
+            {% set preguntas = [
+                "¿La atención de nuestros colaboradores es cordial y amena?",
+                "¿Nuestra atención en caja es rápida?",
+                "¿Nuestras butacas son cómodas?",
+                "¿La temperatura dentro de la sala es agradable?",
+                "¿Las pantallas se ven limpias y nítidas?",
+                "¿Nuestras salas tienen buen sonido?",
+                "¿Nuestra cartelera es atractiva y variada?",
+                "¿Tenemos buenos horarios de funciones?",
+                "¿Nuestros boletos tienen un precio acorde a la calidad?",
+                "¿Los productos de Caramelería son de buena calidad?",
+                "¿Los precios de Caramelería son acordes?",
+                "¿Tenemos variedad de productos en Caramelería?",
+                "¿En general, cuál es tu grado de satisfacción al salir?"
+            ] %}
+        
+            {% for i in range(preguntas|length) %}
+            <div class="pregunta">
+                <p><strong>{{ i + 1 }}. {{ preguntas[i] }}</strong></p>
+                <div class="caritas-container">
+                    <label class="opcion-encuesta">
+                        <input type="radio" name="p{{ i + 1 }}" value="insatisfecho" required>
+                        <div class="carita">☹️</div>
+                        <span>Insatisfecho</span>
+                    </label>
+                    <label class="opcion-encuesta">
+                        <input type="radio" name="p{{ i + 1 }}" value="neutral">
+                        <div class="carita">😐</div>
+                        <span>Neutral</span>
+                    </label>
+                    <label class="opcion-encuesta">
+                        <input type="radio" name="p{{ i + 1 }}" value="satisfecho">
+                        <div class="carita">😄</div>
+                        <span>Satisfecho</span>
+                    </label>
+                </div>
+            </div>
+            {% endfor %}
+        
+            <button type="submit" class="btn-enviar">Finalizar Encuesta</button>
+        </form>
