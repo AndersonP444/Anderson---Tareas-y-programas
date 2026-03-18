@@ -1,0 +1,9 @@
+.pregunta {
+    border-left: 5px solid #e02424; /* Una línea roja de Cinex al lado */
+    text-align: left;
+    margin-bottom: 15px;
+}
+.pregunta p {
+    margin-bottom: 10px;
+    font-size: 15px;
+}   
