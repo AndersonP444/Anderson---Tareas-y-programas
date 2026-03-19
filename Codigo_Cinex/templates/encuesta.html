@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta Cinex</title>
+    <style>
+        /* Estilos para mantener la apariencia de la primera imagen */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background: #f4f4f4; 
+            margin: 0;
+        }
+        .header-texto {
+            margin-bottom: 30px;
+        }
+        .header-texto h3 { color: #333; margin-bottom: 5px; font-size: 1.4rem; }
+        .header-texto h2 { color: #444; font-size: 1.2rem; margin-top: 0; }
+
+        .pregunta-card { 
+            background: white; 
+            padding: 40px 25px; 
+            border-radius: 25px; 
+            margin: 20px auto; 
+            max-width: 400px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            animation: aparecer 0.4s ease-out;
+        }
+        
+        .texto-pregunta {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #111;
+            line-height: 1.4;
+        }
+
+        .caritas-container { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 20px; 
+        }
+        
+        .opcion-encuesta input { display: none; }
+        
+        .opcion-encuesta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .carita { 
+            font-size: 55px; 
+            filter: grayscale(100%); 
+            transition: all 0.3s ease; 
+            margin-bottom: 10px;
+        }
+
+        .opcion-encuesta span {
+            font-size: 13px;
+            color: #888;
+            font-weight: 500;
+        }
+
+        /* Efectos al seleccionar */
+        input:checked + .carita { 
+            filter: grayscale(0%); 
+            transform: scale(1.2); 
+        }
+
+        input:checked ~ span {
+            color: #e02424;
+            font-weight: bold;
+        }
+        
+        .btn-enviar { 
+            background: #e02424; 
+            color: white; 
+            border: none; 
+            padding: 18px; 
+            border-radius: 50px; 
+            font-size: 18px; 
+            font-weight: bold;
+            width: 100%; 
+            max-width: 400px;
+            margin-top: 20px; 
+            box-shadow: 0 4px 15px rgba(224, 36, 36, 0.3);
+            cursor: pointer;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-texto">
+        <h3>¿Cómo calificarías tu experiencia hoy?</h3>
+        <h2>Indícanos qué tan de acuerdo estás:</h2>
+    </div>
+
+    <form id="form-encuesta" action="/enviar" method="POST">
+        {% set preguntas = [
+                "¿La atención de nuestros colaboradores es cordial y amena?",
+                "¿Nuestra atención en caja es rápida?",
+                "¿Nuestras butacas son cómodas?",
+                "¿La temperatura dentro de la sala es agradable?",
+                "¿Las pantallas se ven limpias y nítidas?",
+                "¿Nuestras salas tienen buen sonido?",
+                "¿Nuestra cartelera es atractiva y variada?",
+                "¿Tenemos buenos horarios de funciones?",
+                "¿Nuestros boletos tienen un precio acorde a la calidad?",
+                "¿Los productos de Caramelería son de buena calidad?",
+                "¿Los precios de Caramelería son acordes?",
+                "¿Tenemos variedad de productos en Caramelería?",
+                "¿En general, cuál es tu grado de satisfacción al salir?"
+        ] %}
+
+        {% for i in range(preguntas|length) %}
+        <div class="pregunta-card" id="paso-{{ i }}" style="display: {{ 'block' if i == 0 else 'none' }};">
+            <p class="texto-pregunta">{{ i + 1 }}. {{ preguntas[i] }}</p>
+            
+            <div class="caritas-container">
+                <label class="opcion-encuesta">
+                    <input type="radio" name="p{{ i + 1 }}" value="insatisfecho" required onchange="avanzar({{ i }})">
+                    <div class="carita">☹️</div>
+                    <span>Insatisfecho</span>
+                </label>
+                <label class="opcion-encuesta">
+                    <input type="radio" name="p{{ i + 1 }}" value="neutral" onchange="avanzar({{ i }})">
+                    <div class="carita">😐</div>
+                    <span>Neutral</span>
+                </label>
+                <label class="opcion-encuesta">
+                    <input type="radio" name="p{{ i + 1 }}" value="satisfecho" onchange="avanzar({{ i }})">
+                    <div class="carita">😄</div>
+                    <span>Satisfecho</span>
+                </label>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="pregunta-card" id="paso-13" style="display: none;">
+            <p class="texto-pregunta">¿Tienes algún comentario adicional o sugerencia para nosotros?</p>
+            
+            <textarea name="comentario" placeholder="Escribe aquí tu opinión (opcional)..." 
+                      style="width: 100%; height: 120px; border-radius: 15px; border: 1px solid #ddd; padding: 15px; font-family: inherit; resize: none; margin-bottom: 20px; box-sizing: border-box;"></textarea>
+        
+            <button type="submit" class="btn-enviar">Finalizar y volver al inicio</button>
+        </div>
+        
+        <script>
+            function avanzar(actual) {
+                setTimeout(() => {
+                    const divActual = document.getElementById(`paso-${actual}`);
+                    const siguiente = actual + 1;
+                    const divSiguiente = document.getElementById(`paso-${siguiente}`);
+        
+                    if (divSiguiente) {
+                        divActual.style.display = 'none';
+                        divSiguiente.style.display = 'block';
+                        
+                        // CAMBIO DE TEXTO SEGÚN TU SEGUNDA IMAGEN
+                        if (siguiente === 13) {
+                            document.querySelector('.header-texto h3').innerText = "¡Gracias por responder nuestra encuesta!";
+                            document.querySelector('.header-texto h2').innerText = "Tu experiencia nos ayuda a ser mejores para ustedes";
+                        }
+                        
+                        window.scrollTo(0, 0);
+                    }
+                }, 350);
+            }
+        </script>
+    </script>
+</body>
+</html>
