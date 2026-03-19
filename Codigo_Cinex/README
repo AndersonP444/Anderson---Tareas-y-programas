@@ -1,16 +1,19 @@
 Proyecto encuesta de cinex
 
 Preguntas de la encuesta:
-1. "¿La atención de nuestros colaboradores es cordial y amena?"
-2. "¿Nuestra atención en caja es rápida?"
-3. "¿Nuestras butacas son cómodas?"
-4. "¿La temperatura dentro de la sala es agradable?"
-5. "¿Las pantallas se ven limpias y nítidas?"
-6. "¿Nuestras salas tienen buen sonido?"
-7. "¿Nuestra cartelera es atractiva y variada?"
-8. "¿Tenemos buenos horarios de funciones?"
-9. "¿Nuestros boletos tienen un precio acorde a la calidad?"
-10. "¿Los productos de Caramelería son de buena calidad?"
-11. "¿Los precios de Caramelería son acordes?"
-12. "¿Tenemos variedad de productos en Caramelería?"
-13. "¿En general, cuál es tu grado de satisfacción al salir?"
+1. "¿La atención de nuestros colaboradores es cordial y amena?",
+2. "¿Nuestra atención en caja es rápida?",
+3. "¿Nuestras butacas son cómodas?",
+4. "¿Nuestras instalaciones son atractivas y limpias?",
+5. "¿Las pantallas se ven limpias y nítidas?",
+6. "¿La temperatura en la sala fue agradable?",
+7. "¿Nuestras salas tienen buen sonido?",
+8. "¿Nuestra cartelera es atractiva y variada?",
+9. "¿Los productos de Caramelería son de buena calidad?",
+10. "¿Nuestros precios de la Caramelería son acordes a la relación precio-valor?",
+11. "¿Tenemos variedad de productos en Caramelería?",
+12. "¿Tenemos buenos horarios de funciones?",
+13. "¿Nuestros baños son limpios y ordenados?",
+14. "¿Nuestros boletos tienen un precio acorde a la calidad de la experiencia en nuestras sala?",
+15. "¿Cuánto dinero gastas (o estás dispuesto a gastar) normalmente entre boletos y comidas por persona en el cine?",
+16. "¿En general, cuál es tu grado de satisfacción al salir?"
