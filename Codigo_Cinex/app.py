@@ -10,7 +10,7 @@ DB_PATH = os.path.join(BASE_DIR, 'encuesta.db')
 def inicializar_db():
     conexion = sqlite3.connect(DB_PATH)
     cursor = conexion.cursor()
-    # Tabla actualizada con email y complejo
+    # Ahora tenemos p1 hasta p16 + email, complejo y comentario
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS respuestas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,7 +19,7 @@ def inicializar_db():
             complejo TEXT,
             p1 TEXT, p2 TEXT, p3 TEXT, p4 TEXT, p5 TEXT,
             p6 TEXT, p7 TEXT, p8 TEXT, p9 TEXT, p10 TEXT,
-            p11 TEXT, p12 TEXT, p13 TEXT,
+            p11 TEXT, p12 TEXT, p13 TEXT, p14 TEXT, p15 TEXT, p16 TEXT,
             comentario TEXT
         )
     ''')
@@ -34,36 +34,29 @@ def home():
 
 @app.route('/enviar', methods=['POST'])
 def enviar():
-    # 1. Recolección de datos
     email = request.form.get('email')
     complejo = request.form.get('complejo')
-    respuestas = [request.form.get(f'p{i}') for i in range(1, 14)]
+    # Recolectamos las 16 respuestas
+    respuestas = [request.form.get(f'p{i}') for i in range(1, 17)]
     comentario = request.form.get('comentario', '')
     
-    # 2. Validación de campos obligatorios
     if None in respuestas or not email or not complejo:
-        return "<h3>Error: Por favor completa todos los campos.</h3><a href='/'>Volver</a>", 400
+        return "<h3>Error: Datos incompletos.</h3><a href='/'>Volver</a>", 400
 
-    # 3. Guardado en base de datos
     try:
         conexion = sqlite3.connect(DB_PATH)
         cursor = conexion.cursor()
         
-        # 16 campos en total (email + complejo + 13 preguntas + comentario)
+        # 19 campos en total
         datos = [email, complejo] + respuestas + [comentario]
-        
-        query = """INSERT INTO respuestas (email, complejo, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, comentario) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+        query = "INSERT INTO respuestas (email, complejo, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16, comentario) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         
         cursor.execute(query, datos)
         conexion.commit()
         conexion.close()
-
-        # Redirección al inicio para el siguiente cliente
         return redirect(url_for('home'))
-    
     except Exception as e:
-        return f"<p>Error al guardar: {e}</p>", 500
+        return f"Error: {e}", 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
