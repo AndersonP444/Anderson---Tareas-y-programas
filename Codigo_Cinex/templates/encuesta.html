@@ -34,12 +34,12 @@
             line-height: 1.4;
         }
 
+        /* Estilos Caritas */
         .caritas-container { 
             display: flex; 
             justify-content: space-between; 
             margin-top: 20px; 
         }
-        
         .opcion-encuesta input { display: none; }
         .opcion-encuesta {
             display: flex;
@@ -48,35 +48,28 @@
             flex: 1;
             cursor: pointer;
         }
-
         .carita { 
             font-size: 55px; 
             filter: grayscale(100%); 
             transition: all 0.3s ease; 
             margin-bottom: 10px;
         }
-
         .opcion-encuesta span {
             font-size: 13px;
             color: #888;
             font-weight: 500;
         }
-
         input:checked + .carita { 
             filter: grayscale(0%); 
             transform: scale(1.2); 
         }
-
         input:checked ~ span {
             color: #e02424;
             font-weight: bold;
         }
         
-        /* Estilos del Slider (NPS) del video */
-        .slider-container {
-            margin: 20px 0;
-            text-align: center;
-        }
+        /* Estilos Slider (NPS) */
+        .slider-container { margin: 20px 0; text-align: center; }
         .valor-nps {
             font-size: 2.5rem;
             font-weight: bold;
@@ -88,12 +81,23 @@
             color: #333;
             background: #fff;
         }
-        .nps-slider {
-            width: 100%;
+        .nps-slider { width: 100%; cursor: pointer; accent-color: #e02424; height: 10px; }
+
+        /* Estilos Opciones Dinero */
+        .opcion-dinero-label {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
             cursor: pointer;
-            accent-color: #e02424;
-            height: 10px;
+            text-align: left;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            transition: 0.2s;
         }
+        .opcion-dinero-label:hover { background: #f0f0f0; }
+        .opcion-dinero-label input { margin-right: 10px; }
 
         .btn-enviar { 
             background: #e02424; 
@@ -139,6 +143,7 @@
             "¿Tenemos buenos horarios de funciones?",
             "¿Nuestros baños son limpios y ordenados?",
             "¿Nuestros boletos tienen un precio acorde a la calidad de la experiencia en nuestras sala?",
+            "¿Cuánto dinero gastas (o estás dispuesto a gastar) normalmente entre boletos y comidas por persona en el cine?",
             "¿Recomendarías a tus amigos o familiares visitar Cinex? (10 es la máxima puntuación y 0 la mínima)",
             "¿En general, cuál es tu grado de satisfacción al salir?"
         ] %}
@@ -177,13 +182,22 @@
             <p class="texto-pregunta">{{ preguntas[i] }}</p>
 
             {% if i == 14 %} 
-            <div class="slider-container">
-                <div class="valor-nps" id="display-p15">5</div>
-                <input type="range" name="p15" min="0" max="10" value="5" 
-                       class="nps-slider" 
-                       oninput="document.getElementById('display-p15').innerText = this.value">
+            <div class="opciones-dinero">
+                {% for opcion in ["5$ o menos", "6$ - 10$", "11$ - 15$", "16$ - 20$", "Más de 20$", "Indiferente"] %}
+                <label class="opcion-dinero-label">
+                    <input type="radio" name="p15" value="{{ opcion }}" required onclick="avanzar(14)">
+                    {{ opcion }}
+                </label>
+                {% endfor %}
             </div>
-            <button type="button" class="btn-enviar" onclick="avanzar(14)">Siguiente</button>
+
+            {% elif i == 15 %}
+            <div class="slider-container">
+                <div class="valor-nps" id="display-p16">5</div>
+                <input type="range" name="p16" min="0" max="10" value="5" class="nps-slider" 
+                       oninput="document.getElementById('display-p16').innerText = this.value">
+            </div>
+            <button type="button" class="btn-enviar" onclick="avanzar(15)">Siguiente</button>
 
             {% else %}
             <div class="caritas-container">
@@ -204,7 +218,7 @@
         </div>
         {% endfor %}
 
-        <div class="pregunta-card" id="paso-16" style="display: none;">
+        <div class="pregunta-card" id="paso-17" style="display: none;">
             <p class="texto-pregunta">¿Tienes algún comentario adicional o sugerencia para nosotros?</p>
             <textarea name="comentario" placeholder="Escribe aquí tu opinión (opcional)..." 
                       style="width: 100%; height: 120px; border-radius: 15px; border: 1px solid #ddd; padding: 15px; font-family: inherit; resize: none; margin-bottom: 20px; box-sizing: border-box;"></textarea>
@@ -229,7 +243,6 @@
         
             setTimeout(() => {
                 let divActual, siguiente, divSiguiente;
-        
                 if (actual === 'inicio') {
                     divActual = document.getElementById('paso-inicio');
                     siguiente = 0;
@@ -239,12 +252,12 @@
                 }
         
                 divSiguiente = document.getElementById(`paso-${siguiente}`);
-        
                 if (divSiguiente) {
                     divActual.style.display = 'none';
                     divSiguiente.style.display = 'block';
         
-                    if (siguiente === 16) {
+                    // Al llegar al paso 17 (Comentarios)
+                    if (siguiente === 17) {
                         document.querySelector('.header-texto h3').innerText = "¡Gracias por responder nuestra encuesta!";
                         document.querySelector('.header-texto h2').innerText = "Tu experiencia nos ayuda a ser mejores para ustedes";
                     }
