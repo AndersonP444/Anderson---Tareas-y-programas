@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encuesta Cinex</title>
     <style>
-        /* Estilos para mantener la apariencia de la primera imagen */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             text-align: center; 
@@ -13,9 +12,7 @@
             background: #f4f4f4; 
             margin: 0;
         }
-        .header-texto {
-            margin-bottom: 30px;
-        }
+        .header-texto { margin-bottom: 30px; }
         .header-texto h3 { color: #333; margin-bottom: 5px; font-size: 1.4rem; }
         .header-texto h2 { color: #444; font-size: 1.2rem; margin-top: 0; }
 
@@ -44,7 +41,6 @@
         }
         
         .opcion-encuesta input { display: none; }
-        
         .opcion-encuesta {
             display: flex;
             flex-direction: column;
@@ -66,7 +62,6 @@
             font-weight: 500;
         }
 
-        /* Efectos al seleccionar */
         input:checked + .carita { 
             filter: grayscale(0%); 
             transform: scale(1.2); 
@@ -77,6 +72,29 @@
             font-weight: bold;
         }
         
+        /* Estilos del Slider (NPS) del video */
+        .slider-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .valor-nps {
+            font-size: 2.5rem;
+            font-weight: bold;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            padding: 10px 30px;
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #333;
+            background: #fff;
+        }
+        .nps-slider {
+            width: 100%;
+            cursor: pointer;
+            accent-color: #e02424;
+            height: 10px;
+        }
+
         .btn-enviar { 
             background: #e02424; 
             color: white; 
@@ -107,76 +125,133 @@
 
     <form id="form-encuesta" action="/enviar" method="POST">
         {% set preguntas = [
-                "¿La atención de nuestros colaboradores es cordial y amena?",
-                "¿Nuestra atención en caja es rápida?",
-                "¿Nuestras butacas son cómodas?",
-                "¿La temperatura dentro de la sala es agradable?",
-                "¿Las pantallas se ven limpias y nítidas?",
-                "¿Nuestras salas tienen buen sonido?",
-                "¿Nuestra cartelera es atractiva y variada?",
-                "¿Tenemos buenos horarios de funciones?",
-                "¿Nuestros boletos tienen un precio acorde a la calidad?",
-                "¿Los productos de Caramelería son de buena calidad?",
-                "¿Los precios de Caramelería son acordes?",
-                "¿Tenemos variedad de productos en Caramelería?",
-                "¿En general, cuál es tu grado de satisfacción al salir?"
+            "¿La atención de nuestros colaboradores es cordial y amena?",
+            "¿Nuestra atención en caja es rápida?",
+            "¿Nuestras butacas son cómodas?",
+            "¿Nuestras instalaciones son atractivas y limpias?",
+            "¿Las pantallas se ven limpias y nítidas?",
+            "¿La temperatura en la sala fue agradable?",
+            "¿Nuestras salas tienen buen sonido?",
+            "¿Nuestra cartelera es atractiva y variada?",
+            "¿Los productos de Caramelería son de buena calidad?",
+            "¿Nuestros precios de la Caramelería son acordes a la relación precio-valor?",
+            "¿Tenemos variedad de productos en Caramelería?",
+            "¿Tenemos buenos horarios de funciones?",
+            "¿Nuestros baños son limpios y ordenados?",
+            "¿Nuestros boletos tienen un precio acorde a la calidad de la experiencia en nuestras sala?",
+            "¿Recomendarías a tus amigos o familiares visitar Cinex? (10 es la máxima puntuación y 0 la mínima)",
+            "¿En general, cuál es tu grado de satisfacción al salir?"
         ] %}
+        
+        <div class="pregunta-card" id="paso-inicio">
+            <p class="texto-pregunta">Indícanos tu correo electrónico</p>
+            <input type="email" name="email" placeholder="ejemplo@correo.com" required 
+                   style="width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #ddd; margin-bottom: 30px; box-sizing: border-box; font-family: inherit;">
+        
+            <p class="texto-pregunta">Seleccione el complejo visitado</p>
+            <select name="complejo" required 
+                    style="width: 100%; padding: 15px; border-radius: 15px; border: 1px solid #ddd; margin-bottom: 30px; box-sizing: border-box; font-family: inherit; background: white;">
+                <option value="" disabled selected>Seleccione un complejo</option>
+                <option>Cinex Sambil (Chacao)</option>
+                <option>Cinex San Ignacio</option>
+                <option>Cinex Tolón</option>
+                <option>Cinex El Recreo</option>
+                <option>Cinex Paseo El Hatillo</option>
+                <option>Cinex Los Naranjos (Galería)</option>
+                <option>Cinex Multiplaza Paraíso</option>
+                <option>Cinex Los Próceres</option>
+                <option>Cinex Buenaventura Guatire</option>
+                <option>Cinex Sotavento (C.C. Sotavento)</option>
+                <option>Lago Mall Maracaibo</option>
+                <option>Lechería (Centro Plaza)</option>
+                <option>Parque Costazul</option>
+                <option>Metrópolis Barquisimeto</option>
+                <option>Sambil Paraguaná</option>
+            </select>
+        
+            <button type="button" class="btn-enviar" onclick="avanzar('inicio')">Comenzar encuesta</button>
+        </div>
 
         {% for i in range(preguntas|length) %}
-        <div class="pregunta-card" id="paso-{{ i }}" style="display: {{ 'block' if i == 0 else 'none' }};">
-            <p class="texto-pregunta">{{ i + 1 }}. {{ preguntas[i] }}</p>
-            
+        <div class="pregunta-card" id="paso-{{ i }}" style="display: none;">
+            <p class="texto-pregunta">{{ preguntas[i] }}</p>
+
+            {% if i == 14 %} 
+            <div class="slider-container">
+                <div class="valor-nps" id="display-p15">5</div>
+                <input type="range" name="p15" min="0" max="10" value="5" 
+                       class="nps-slider" 
+                       oninput="document.getElementById('display-p15').innerText = this.value">
+            </div>
+            <button type="button" class="btn-enviar" onclick="avanzar(14)">Siguiente</button>
+
+            {% else %}
             <div class="caritas-container">
                 <label class="opcion-encuesta">
-                    <input type="radio" name="p{{ i + 1 }}" value="insatisfecho" required onchange="avanzar({{ i }})">
-                    <div class="carita">☹️</div>
-                    <span>Insatisfecho</span>
+                    <input type="radio" name="p{{ i + 1 }}" value="insatisfecho" required onclick="avanzar({{ i }})">
+                    <div class="carita">☹️</div><span>Insatisfecho</span>
                 </label>
                 <label class="opcion-encuesta">
-                    <input type="radio" name="p{{ i + 1 }}" value="neutral" onchange="avanzar({{ i }})">
-                    <div class="carita">😐</div>
-                    <span>Neutral</span>
+                    <input type="radio" name="p{{ i + 1 }}" value="neutral" onclick="avanzar({{ i }})">
+                    <div class="carita">😐</div><span>Neutral</span>
                 </label>
                 <label class="opcion-encuesta">
-                    <input type="radio" name="p{{ i + 1 }}" value="satisfecho" onchange="avanzar({{ i }})">
-                    <div class="carita">😄</div>
-                    <span>Satisfecho</span>
+                    <input type="radio" name="p{{ i + 1 }}" value="satisfecho" onclick="avanzar({{ i }})">
+                    <div class="carita">😄</div><span>Satisfecho</span>
                 </label>
             </div>
+            {% endif %}
         </div>
         {% endfor %}
 
-        <div class="pregunta-card" id="paso-13" style="display: none;">
+        <div class="pregunta-card" id="paso-16" style="display: none;">
             <p class="texto-pregunta">¿Tienes algún comentario adicional o sugerencia para nosotros?</p>
-            
             <textarea name="comentario" placeholder="Escribe aquí tu opinión (opcional)..." 
                       style="width: 100%; height: 120px; border-radius: 15px; border: 1px solid #ddd; padding: 15px; font-family: inherit; resize: none; margin-bottom: 20px; box-sizing: border-box;"></textarea>
-        
             <button type="submit" class="btn-enviar">Finalizar y volver al inicio</button>
         </div>
-        
-        <script>
-            function avanzar(actual) {
-                setTimeout(() => {
-                    const divActual = document.getElementById(`paso-${actual}`);
-                    const siguiente = actual + 1;
-                    const divSiguiente = document.getElementById(`paso-${siguiente}`);
-        
-                    if (divSiguiente) {
-                        divActual.style.display = 'none';
-                        divSiguiente.style.display = 'block';
-                        
-                        // CAMBIO DE TEXTO SEGÚN TU SEGUNDA IMAGEN
-                        if (siguiente === 13) {
-                            document.querySelector('.header-texto h3').innerText = "¡Gracias por responder nuestra encuesta!";
-                            document.querySelector('.header-texto h2').innerText = "Tu experiencia nos ayuda a ser mejores para ustedes";
-                        }
-                        
-                        window.scrollTo(0, 0);
-                    }
-                }, 350);
+    </form>
+
+    <script>
+        function avanzar(actual) {
+            if (actual === 'inicio') {
+                const emailInput = document.querySelector('input[name="email"]');
+                const complejoSelect = document.querySelector('select[name="complejo"]');
+                if (!emailInput.value || !complejoSelect.value) {
+                    alert("Por favor, ingresa tu correo y selecciona un complejo para continuar.");
+                    return;
+                }
+                if (!emailInput.checkValidity()) {
+                    alert("Por favor, ingresa un correo electrónico válido.");
+                    return;
+                }
             }
-        </script>
+        
+            setTimeout(() => {
+                let divActual, siguiente, divSiguiente;
+        
+                if (actual === 'inicio') {
+                    divActual = document.getElementById('paso-inicio');
+                    siguiente = 0;
+                } else {
+                    divActual = document.getElementById(`paso-${actual}`);
+                    siguiente = actual + 1;
+                }
+        
+                divSiguiente = document.getElementById(`paso-${siguiente}`);
+        
+                if (divSiguiente) {
+                    divActual.style.display = 'none';
+                    divSiguiente.style.display = 'block';
+        
+                    if (siguiente === 16) {
+                        document.querySelector('.header-texto h3').innerText = "¡Gracias por responder nuestra encuesta!";
+                        document.querySelector('.header-texto h2').innerText = "Tu experiencia nos ayuda a ser mejores para ustedes";
+                    }
+                    window.scrollTo(0, 0);
+                }
+            }, 350);
+        }
     </script>
 </body>
 </html>
