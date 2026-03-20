@@ -95,6 +95,38 @@ input:checked ~ span {
     height: 10px;
 }
 
+/* === ESTILOS PARA OPCIONES DE DINERO (NUEVO) === */
+.opciones-dinero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: left;
+}
+
+.opcion-dinero-label {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #eee;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.opcion-dinero-label:hover {
+    background: #f0f0f0;
+    border-color: #ddd;
+}
+
+.opcion-dinero-label input {
+    margin-right: 15px;
+    accent-color: #e02424;
+    width: 18px;
+    height: 18px;
+}
+
 /* Botón de acción principal */
 .btn-enviar { 
     background: #e02424; 
