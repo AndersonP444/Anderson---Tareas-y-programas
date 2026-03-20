@@ -1,32 +1,123 @@
 /* style.css */
+
+/* Contenedor principal de la encuesta */
 .contenedor-encuesta {
     max-width: 500px;
     margin: 20px auto;
     padding: 10px;
 }
 
-.paso-pregunta {
+/* Tarjeta de cada pregunta con animación */
+.paso-pregunta, .pregunta-card {
     background: white;
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    animation: aparecer 0.5s ease; /* Animación de entrada */
+    padding: 40px 25px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    animation: aparecer 0.5s ease;
+    margin: 20px auto;
+    max-width: 400px;
 }
 
-.contador {
-    font-size: 0.9rem;
-    color: #e02424;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
+/* Texto de la pregunta */
 .texto-pregunta {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #111;
     line-height: 1.4;
 }
 
+/* Contenedor de caritas */
+.caritas-container { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-top: 20px; 
+}
+
+.opcion-encuesta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    cursor: pointer;
+}
+
+.opcion-encuesta input { display: none; }
+
+.carita { 
+    font-size: 55px; 
+    filter: grayscale(100%); 
+    transition: all 0.3s ease; 
+    margin-bottom: 10px;
+}
+
+.opcion-encuesta span {
+    font-size: 13px;
+    color: #888;
+    font-weight: 500;
+}
+
+/* Estado seleccionado de las caritas */
+input:checked + .carita { 
+    filter: grayscale(0%); 
+    transform: scale(1.2); 
+}
+
+input:checked ~ span {
+    color: #e02424;
+    font-weight: bold;
+}
+
+/* === ESTILOS PARA EL SLIDER (NPS) === */
+.slider-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* El recuadro que muestra el número (0-10) */
+.valor-nps {
+    font-size: 2.5rem;
+    font-weight: bold;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    padding: 10px 30px;
+    display: inline-block;
+    margin-bottom: 25px;
+    color: #333;
+    background: #fff;
+}
+
+/* El selector deslizante */
+.nps-slider {
+    width: 100%;
+    cursor: pointer;
+    accent-color: #e02424; /* Color rojo Cinex */
+    height: 10px;
+}
+
+/* Botón de acción principal */
+.btn-enviar { 
+    background: #e02424; 
+    color: white; 
+    border: none; 
+    padding: 18px; 
+    border-radius: 50px; 
+    font-size: 18px; 
+    font-weight: bold;
+    width: 100%; 
+    max-width: 400px;
+    margin-top: 20px; 
+    box-shadow: 0 4px 15px rgba(224, 36, 36, 0.3);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-enviar:hover {
+    background: #b31d1d;
+}
+
+/* Animación de entrada */
 @keyframes aparecer {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }

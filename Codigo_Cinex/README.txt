@@ -90,3 +90,8 @@ Herramienta Recomendada: Tailwind CSS
 Para este caso móvil, te recomiendo mucho usar Tailwind CSS junto con Python. Te permite diseñar interfaces móviles "en línea" de forma muy rápida y tiene utilidades específicas para pantallas pequeñas (ejemplo: flex-col md:flex-row).
 
 Tip Extra (El "Wildcard"): Podrías convertir la encuesta en una PWA (Progressive Web App) básica. Esto permite que, si alguien abre el enlace con frecuencia, se sienta como una aplicación nativa, sin barras de navegación del navegador que estorben.
+
+SERVIDOR:
+user: AndersonDev1
+Correo: andersonjperdomo@hotmail.com
+contraseña: Anderson_Dev1
